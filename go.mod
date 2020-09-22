@@ -1,4 +1,4 @@
-module gormrus
+module github.com/uniwise/gormrus
 
 go 1.15
 

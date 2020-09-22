@@ -10,16 +10,21 @@ Simple use case:
 package main
 
 import (
-    "gorm.io/gorm"
-    "gorm.io/driver/sqlite"
+    "github.com/sirupsen/logrus"
     "github.com/uniwise/gormrus"
+    "gorm.io/driver/sqlite"
+    "gorm.io/gorm"
 )
 
-db, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{
-    Logger: gormrus.New(),
-})
-if err != nil {
-    panic("Failed to connect database")
+func main() {
+    db, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{
+        Logger: gormrus.New(),
+    })
+    if err != nil {
+        panic("Failed to connect database")
+    }
+
+    ...
 }
 ```
 
@@ -29,18 +34,23 @@ Bring you own logrus instance:
 package main
 
 import (
-    "gorm.io/gorm"
-    "gorm.io/driver/sqlite"
+    "github.com/sirupsen/logrus"
     "github.com/uniwise/gormrus"
+    "gorm.io/driver/sqlite"
+    "gorm.io/gorm"
 )
 
-logger := logrus.New()
-logger.SetLevel(logrus.DebugLevel)
+func main() {
+    logger := logrus.New()
+    logger.SetLevel(logrus.DebugLevel)
 
-db, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{
-    Logger: gormrus.NewWithLogger(logger),
-})
-if err != nil {
-    panic("Failed to connect database")
+    db, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{
+        Logger: gormrus.NewWithLogger(logger),
+    })
+    if err != nil {
+        panic("Failed to connect database")
+    }
+
+    ...
 }
 ```
